@@ -19,6 +19,11 @@ public class Solutions {
         this.user_id = user_id;
     }
 
+    public Solutions(int exercise_id, int user_id) {
+        this.exercise_id = exercise_id;
+        this.user_id = user_id;
+    }
+
     public int getId() {
         return id;
     }

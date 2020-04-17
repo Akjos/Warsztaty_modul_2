@@ -1,6 +1,6 @@
 package com.coderslab.DAO;
 
-import com.coderslab.Utils.DBUtil;
+import com.coderslab.utils.DBUtil;
 import com.coderslab.databaseModel.UsersGroups;
 
 import java.sql.*;
@@ -13,7 +13,7 @@ public class UsersGroupsDAO {
     private static String DELETE_GROUP_QUERY = "delete from users_groups where id = ?";
     private static String FIND_ALL_GROUP_QUERY = "select * from users_groups";
 
-    public UsersGroups created(UsersGroups usersGroups) {
+    public UsersGroups create(UsersGroups usersGroups) {
         try (Connection connection = DBUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(CREATE_GROUP_QUERY, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, usersGroups.getName());

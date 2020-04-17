@@ -1,6 +1,6 @@
 package com.coderslab.DAO;
 
-import com.coderslab.Utils.DBUtil;
+import com.coderslab.utils.DBUtil;
 import com.coderslab.databaseModel.Exercises;
 
 import java.sql.*;
@@ -13,7 +13,7 @@ public class ExercisesDAO {
     private static final String DELETE_EXERCISES_QUERY = "DELETE FROM exercises WHERE id = ?";
     private static final String FIND_ALL_EXERCISES_QUERY = "SELECT * FROM exercises";
 
-    public Exercises created(Exercises exercise) {
+    public Exercises create(Exercises exercise) {
         try (Connection connection = DBUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(CREATE_EXERCISES_QUERY, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, exercise.getTitle());

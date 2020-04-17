@@ -1,6 +1,6 @@
 package com.coderslab.databaseModel;
 
-import com.coderslab.Utils.BCrypt;
+import com.coderslab.utils.BCrypt;
 
 public class User {
     private int id;
@@ -51,6 +51,10 @@ public class User {
         this.password = password;
     }
 
+    public void setNewPassword(String password) {
+        hashPassword(password);
+    }
+
     public int getUserGroupId() {
         return userGroupId;
     }
@@ -65,12 +69,9 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", userGroupId=" + userGroupId +
-                '}';
+        return "id=" + id +
+                " username ='" + username + '\'' +
+                " email ='" + email + '\'' +
+                " userGroupId =" + userGroupId;
     }
 }

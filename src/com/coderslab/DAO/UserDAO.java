@@ -1,6 +1,6 @@
 package com.coderslab.DAO;
 
-import com.coderslab.Utils.DBUtil;
+import com.coderslab.utils.DBUtil;
 import com.coderslab.databaseModel.User;
 
 import java.sql.*;
