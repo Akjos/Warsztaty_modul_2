@@ -5,9 +5,6 @@ import java.util.Scanner;
 public class ScannerManager {
     private static Scanner scanner = new Scanner(System.in);
 
-
-    private static String MAIN_MENU = "";
-
     public static int getMenu(String menu) {
         System.out.println(menu);
         return getNumber();

@@ -1,14 +1,14 @@
 package com.coderslab.databaseModel;
 
-public class Exercises {
+public class Exercise {
     private int id;
     private String title;
     private String description;
 
-    public Exercises() {
+    public Exercise() {
     }
 
-    public Exercises(String title, String description) {
+    public Exercise(String title, String description) {
         this.title = title;
         this.description = description;
     }

@@ -13,6 +13,7 @@ public class UserDAO {
     private static final String DELETE_USER_QUERY = "DELETE FROM users WHERE id = ?";
     private static final String FIND_ALL_USERS_QUERY = "SELECT * FROM users";
     private static final String FIND_ALL_BY_GROUP_ID_QUERY = "SELECT * FROM users WHERE user_group_id = ?";
+    private static final String FIND_USER_BY_EMAIL = "SELECT * FROM users where email = ?";
 
     public User create(User user) {
         try (Connection conn = DBUtil.getConnection();
@@ -37,8 +38,7 @@ public class UserDAO {
             statement.setInt(1, userId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                User user = setUser(resultSet);
-                return user;
+                return setUser(resultSet);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -99,6 +99,20 @@ public class UserDAO {
                 users = addToArray(user, users);
             }
             return users;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public User getUserByEmail(String email) {
+        try (Connection connection = DBUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_USER_BY_EMAIL)) {
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return setUser(resultSet);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

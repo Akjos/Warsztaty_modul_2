@@ -1,7 +1,9 @@
 package com.coderslab.controllers;
 
 import com.coderslab.DAO.ExercisesDAO;
-import com.coderslab.databaseModel.Exercises;
+import com.coderslab.DAO.SolutionsDAO;
+import com.coderslab.databaseModel.Exercise;
+import com.coderslab.utils.PrintInConsoleUtil;
 import com.coderslab.utils.ScannerManager;
 
 public class ExercisesManagement extends Manager{
@@ -21,7 +23,7 @@ public class ExercisesManagement extends Manager{
     protected void edit() {
         System.out.println("Enter id exercise");
         int id = ScannerManager.getNumber();
-        Exercises exercise = getElement();
+        Exercise exercise = getElement();
         exercise.setId(id);
         dao.update(exercise);
     }
@@ -30,29 +32,23 @@ public class ExercisesManagement extends Manager{
     protected void delete() {
         System.out.println("Enter id exercise to delete");
         int id = ScannerManager.getNumber();
-        System.out.println("Do you want delete this exercise [y/n]");
-        while (true) {
-            String temp = ScannerManager.getString();
-            if (temp.equals("y")) {
-                dao.delete(id);
-                break;
-            } else if (temp.equals("n")) {
-                break;
-            }
+        System.out.println("Deleting this exercise will delete this solutions:");
+        PrintInConsoleUtil.showSolutions(new SolutionsDAO().findAllByExerciseId(id));
+        if(confirmDelete()) {
+            dao.delete(id);
         }
     }
 
     @Override
     protected void showAll() {
-        Exercises[] exercise = dao.findAll();
+        Exercise[] exercises = dao.findAll();
         System.out.println("All exercises:");
-        for (Exercises exercises : exercise) {
-            System.out.println(exercises);
-        }
+        PrintInConsoleUtil.showExercises(exercises);
     }
 
-    private Exercises getElement() {
-        Exercises exercise = new Exercises();
+
+    private Exercise getElement() {
+        Exercise exercise = new Exercise();
         System.out.println("Enter title");
         exercise.setTitle(ScannerManager.getString());
         System.out.println("Enter description");

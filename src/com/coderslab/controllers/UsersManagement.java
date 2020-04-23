@@ -1,7 +1,9 @@
 package com.coderslab.controllers;
 
+import com.coderslab.DAO.SolutionsDAO;
 import com.coderslab.DAO.UserDAO;
 import com.coderslab.databaseModel.User;
+import com.coderslab.utils.PrintInConsoleUtil;
 import com.coderslab.utils.ScannerManager;
 
 public class UsersManagement extends Manager {
@@ -30,24 +32,18 @@ public class UsersManagement extends Manager {
     protected void delete() {
         System.out.println("Enter id user to delete");
         int id = ScannerManager.getNumber();
-        System.out.println("Do you want delete this user [y/n]");
-        while (true) {
-            String temp = ScannerManager.getString();
-            if (temp.equals("y")) {
-                dao.delete(id);
-                break;
-            } else if (temp.equals("n")) {
-                break;
-            }
+        System.out.println("Deleting this user will delete this solutions:");
+        PrintInConsoleUtil.showSolutions(new SolutionsDAO().findAllByUserId(id));
+        if(confirmDelete()) {
+            dao.delete(id);
         }
     }
 
+    @Override
     protected void showAll() {
         User[] users = dao.findAll();
         System.out.println("All users:");
-        for (User user : users) {
-            System.out.println(user);
-        }
+        PrintInConsoleUtil.showUsers(users);
     }
 
     private User getElement() {

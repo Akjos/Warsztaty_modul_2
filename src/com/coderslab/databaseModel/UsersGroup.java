@@ -1,13 +1,13 @@
 package com.coderslab.databaseModel;
 
-public class UsersGroups {
+public class UsersGroup {
     private int id;
     private String name;
 
-    public UsersGroups() {
+    public UsersGroup() {
     }
 
-    public UsersGroups(String name) {
+    public UsersGroup(String name) {
         this.name = name;
     }
 

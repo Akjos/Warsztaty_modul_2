@@ -4,10 +4,10 @@ import com.coderslab.DAO.ExercisesDAO;
 import com.coderslab.DAO.SolutionsDAO;
 import com.coderslab.DAO.UserDAO;
 import com.coderslab.DAO.UsersGroupsDAO;
-import com.coderslab.databaseModel.Exercises;
-import com.coderslab.databaseModel.Solutions;
+import com.coderslab.databaseModel.Exercise;
+import com.coderslab.databaseModel.Solution;
 import com.coderslab.databaseModel.User;
-import com.coderslab.databaseModel.UsersGroups;
+import com.coderslab.databaseModel.UsersGroup;
 
 public class InitDatabase {
 
@@ -46,15 +46,15 @@ public class InitDatabase {
                 "id int(11) auto_increment primary key , " +
                 "username varchar(255), email varchar(255), " +
                 "password varchar(245), user_group_id int(11), " +
-                "foreign key (user_group_id) references users_groups(id) );";
+                "foreign key (user_group_id) references users_groups(id) ON DELETE CASCADE);";
 
         String sqlSolutions = "create table solutions ( " +
                 "id int primary key auto_increment, " +
                 "created datetime, updated datetime, " +
                 "description text, exercises_id int(11), " +
                 "user_id int(11), " +
-                "foreign key (exercises_id) references exercises(id), " +
-                "foreign key (user_id) references users(id) );";
+                "foreign key (exercises_id) references exercises(id) ON DELETE CASCADE, " +
+                "foreign key (user_id) references users(id) ON DELETE CASCADE );";
 
         DBUtil.executeStatement(sqlUsersGroups);
         DBUtil.executeStatement(sqlExercises);
@@ -72,23 +72,23 @@ public class InitDatabase {
 
     private void fillSolutions() {
         SolutionsDAO solutionsDAO = new SolutionsDAO();
-        solutionsDAO.created(new Solutions("opis rozwiązania nr 1", 1, 1));
-        solutionsDAO.created(new Solutions("opis rozwiązania nr 1", 1, 1));
-        solutionsDAO.created(new Solutions("opis rozwiązania nr 2", 2, 1));
-        solutionsDAO.created(new Solutions("opis rozwiązania nr 3", 3, 1));
-        solutionsDAO.created(new Solutions("opis rozwiązania nr 1", 1, 2));
-        solutionsDAO.created(new Solutions("opis rozwiązania nr 3", 3, 2));
-        solutionsDAO.created(new Solutions("opis rozwiązania nr 1", 1, 3));
-        solutionsDAO.created(new Solutions("opis rozwiązania nr 2", 2, 3));
-        solutionsDAO.created(new Solutions("opis rozwiązania nr 1", 1, 4));
+        solutionsDAO.created(new Solution(1, 1));
+        solutionsDAO.created(new Solution(1, 1));
+        solutionsDAO.created(new Solution(2, 1));
+        solutionsDAO.created(new Solution(3, 1));
+        solutionsDAO.created(new Solution(1, 2));
+        solutionsDAO.created(new Solution(3, 2));
+        solutionsDAO.created(new Solution(1, 3));
+        solutionsDAO.created(new Solution(2, 3));
+        solutionsDAO.created(new Solution(1, 4));
     }
 
     private void fillExercises() {
         ExercisesDAO exercisesDAO = new ExercisesDAO();
-        exercisesDAO.create(new Exercises("zadanie 1", "to jest jakiś opis"));
-        exercisesDAO.create(new Exercises("zadanie 2", "to jest jakiś opis"));
-        exercisesDAO.create(new Exercises("zadanie 3", "to jest jakiś opis"));
-        exercisesDAO.create(new Exercises("zadanie 4", "to jest jakiś opis"));
+        exercisesDAO.create(new Exercise("zadanie 1", "to jest jakiś opis"));
+        exercisesDAO.create(new Exercise("zadanie 2", "to jest jakiś opis"));
+        exercisesDAO.create(new Exercise("zadanie 3", "to jest jakiś opis"));
+        exercisesDAO.create(new Exercise("zadanie 4", "to jest jakiś opis"));
     }
 
     private void fillUsers() {
@@ -105,9 +105,9 @@ public class InitDatabase {
 
     private void fillUsersGroups() {
         UsersGroupsDAO usersGroupsDAO = new UsersGroupsDAO();
-        usersGroupsDAO.create(new UsersGroups("Group A"));
-        usersGroupsDAO.create(new UsersGroups("Group B"));
-        usersGroupsDAO.create(new UsersGroups("Group C"));
+        usersGroupsDAO.create(new UsersGroup("Group A"));
+        usersGroupsDAO.create(new UsersGroup("Group B"));
+        usersGroupsDAO.create(new UsersGroup("Group C"));
     }
 
 

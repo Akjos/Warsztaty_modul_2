@@ -2,7 +2,7 @@ package com.coderslab.databaseModel;
 
 import java.sql.Date;
 
-public class Solutions {
+public class Solution {
     private int id;
     private Date created;
     private Date update;
@@ -10,16 +10,16 @@ public class Solutions {
     private int exercise_id;
     private int user_id;
 
-    public Solutions() {
+    public Solution() {
     }
 
-    public Solutions(String description, int exercise_id, int user_id) {
+    public Solution(String description, int exercise_id, int user_id) {
         this.description = description;
         this.exercise_id = exercise_id;
         this.user_id = user_id;
     }
 
-    public Solutions(int exercise_id, int user_id) {
+    public Solution(int exercise_id, int user_id) {
         this.exercise_id = exercise_id;
         this.user_id = user_id;
     }
@@ -74,13 +74,11 @@ public class Solutions {
 
     @Override
     public String toString() {
-        return "Solutions{" +
-                "id=" + id +
-                ", created=" + created +
-                ", update=" + update +
-                ", description='" + description + '\'' +
-                ", exercise_id=" + exercise_id +
-                ", user_id=" + user_id +
-                "}";
+        return "id=" + id +
+                " created = " + created +
+                " update = " + update +
+                " description = " + description +
+                " exercise_id = " + exercise_id +
+                " user_id = " + user_id;
     }
 }

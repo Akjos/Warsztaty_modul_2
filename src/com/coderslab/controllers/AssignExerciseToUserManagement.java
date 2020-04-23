@@ -3,9 +3,8 @@ package com.coderslab.controllers;
 import com.coderslab.DAO.ExercisesDAO;
 import com.coderslab.DAO.SolutionsDAO;
 import com.coderslab.DAO.UserDAO;
-import com.coderslab.databaseModel.Exercises;
-import com.coderslab.databaseModel.Solutions;
-import com.coderslab.databaseModel.User;
+import com.coderslab.databaseModel.Solution;
+import com.coderslab.utils.PrintInConsoleUtil;
 import com.coderslab.utils.ScannerManager;
 
 public class AssignExerciseToUserManagement {
@@ -15,7 +14,7 @@ public class AssignExerciseToUserManagement {
     private String MENU = "Select:\n" +
             "'1' - Add\n" +
             "'2' - View\n" +
-            "'3' - Quit";
+            "'3' - Back";
 
     private String NAME = "Assign Exercise to User";
 
@@ -41,41 +40,23 @@ public class AssignExerciseToUserManagement {
     }
 
     private void view() {
-        showUsers();
+        PrintInConsoleUtil.showUsers(new UserDAO().findAll());
         System.out.println("Select id User");
         int userId = ScannerManager.getNumber();
-        Solutions[] allUserSolutions = dao.findAllByUserId(userId);
-        showSolutions(allUserSolutions);
+        Solution[] allUserSolutions = dao.findAllByUserId(userId);
+        PrintInConsoleUtil.showSolutions(allUserSolutions);
     }
 
-    private void showSolutions(Solutions[] solutions) {
-        for (Solutions solution: solutions) {
-            System.out.println(solution);
-        }
-    }
 
     private void add() {
-        showUsers();
+        PrintInConsoleUtil.showUsers(new UserDAO().findAll());
         System.out.println("Select id User");
         int userId = ScannerManager.getNumber();
-        showExercises();
+        PrintInConsoleUtil.showExercises(new ExercisesDAO().findAll());
         System.out.println("Select id Exercise");
         int exerciseId = ScannerManager.getNumber();
-        Solutions solution = new Solutions(exerciseId, userId);
+        Solution solution = new Solution(exerciseId, userId);
         dao.created(solution);
     }
 
-    private void showExercises() {
-        Exercises[] exercise = new ExercisesDAO().findAll();
-        for (Exercises exercises : exercise) {
-            System.out.println(exercises);
-        }
-    }
-
-    protected void showUsers() {
-        User[] users = new UserDAO().findAll();
-        for (User user : users) {
-            System.out.println(user);
-        }
-    }
 }

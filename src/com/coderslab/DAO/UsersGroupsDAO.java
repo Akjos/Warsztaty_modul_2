@@ -1,7 +1,7 @@
 package com.coderslab.DAO;
 
 import com.coderslab.utils.DBUtil;
-import com.coderslab.databaseModel.UsersGroups;
+import com.coderslab.databaseModel.UsersGroup;
 
 import java.sql.*;
 import java.util.Arrays;
@@ -13,32 +13,32 @@ public class UsersGroupsDAO {
     private static String DELETE_GROUP_QUERY = "delete from users_groups where id = ?";
     private static String FIND_ALL_GROUP_QUERY = "select * from users_groups";
 
-    public UsersGroups create(UsersGroups usersGroups) {
+    public UsersGroup create(UsersGroup usersGroup) {
         try (Connection connection = DBUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(CREATE_GROUP_QUERY, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setString(1, usersGroups.getName());
+            statement.setString(1, usersGroup.getName());
             statement.executeUpdate();
             ResultSet result = statement.getGeneratedKeys();
             if (result.next()) {
-                usersGroups.setId(result.getInt(1));
+                usersGroup.setId(result.getInt(1));
             }
-            return usersGroups;
+            return usersGroup;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public UsersGroups read(int groupUserId) {
+    public UsersGroup read(int groupUserId) {
         try (Connection connection = DBUtil.getConnection();
              PreparedStatement statement= connection.prepareStatement(READ_GROUP_QUERY)) {
             statement.setInt(1,groupUserId);
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next()){
-                UsersGroups usersGroups = new UsersGroups();
-                usersGroups.setId(resultSet.getInt("id"));
-                usersGroups.setName(resultSet.getString("name"));
-                return usersGroups;
+                UsersGroup usersGroup = new UsersGroup();
+                usersGroup.setId(resultSet.getInt("id"));
+                usersGroup.setName(resultSet.getString("name"));
+                return usersGroup;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -46,11 +46,11 @@ public class UsersGroupsDAO {
         return null;
     }
 
-    public void update(UsersGroups usersGroups) {
+    public void update(UsersGroup usersGroup) {
         try(Connection connection = DBUtil.getConnection();
         PreparedStatement statement = connection.prepareStatement(UPDATE_GROUP_QUERY)) {
-            statement.setString(1,usersGroups.getName());
-            statement.setInt(2,usersGroups.getId());
+            statement.setString(1, usersGroup.getName());
+            statement.setInt(2, usersGroup.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -67,15 +67,15 @@ public class UsersGroupsDAO {
         }
     }
 
-    public UsersGroups[] findAll() {
+    public UsersGroup[] findAll() {
         try (Connection conn = DBUtil.getConnection();
              PreparedStatement statement = conn.prepareStatement(FIND_ALL_GROUP_QUERY)) {
 
-            UsersGroups[] usersGroups = new UsersGroups[0];
+            UsersGroup[] usersGroups = new UsersGroup[0];
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                UsersGroups usersGroup = new UsersGroups();
+                UsersGroup usersGroup = new UsersGroup();
                 usersGroup.setId(resultSet.getInt("id"));
                 usersGroup.setName(resultSet.getString("name"));
                 usersGroups = addToArray(usersGroup, usersGroups);
@@ -87,8 +87,8 @@ public class UsersGroupsDAO {
         }
     }
 
-    private UsersGroups[] addToArray(UsersGroups g, UsersGroups[] usersGroups) {
-        UsersGroups[] tmpUsers = Arrays.copyOf(usersGroups, usersGroups.length + 1);
+    private UsersGroup[] addToArray(UsersGroup g, UsersGroup[] usersGroups) {
+        UsersGroup[] tmpUsers = Arrays.copyOf(usersGroups, usersGroups.length + 1);
         tmpUsers[usersGroups.length] = g;
         return tmpUsers;
     }

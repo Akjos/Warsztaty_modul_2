@@ -1,7 +1,9 @@
 package com.coderslab.controllers;
 
+import com.coderslab.DAO.UserDAO;
 import com.coderslab.DAO.UsersGroupsDAO;
-import com.coderslab.databaseModel.UsersGroups;
+import com.coderslab.databaseModel.UsersGroup;
+import com.coderslab.utils.PrintInConsoleUtil;
 import com.coderslab.utils.ScannerManager;
 
 public class GroupManagement extends Manager {
@@ -20,7 +22,7 @@ public class GroupManagement extends Manager {
     protected void edit() {
         System.out.println("Enter id group");
         int id = ScannerManager.getNumber();
-        UsersGroups group = getElement();
+        UsersGroup group = getElement();
         group.setId(id);
         dao.update(group);
     }
@@ -29,29 +31,22 @@ public class GroupManagement extends Manager {
     protected void delete() {
         System.out.println("Enter id group to delete");
         int id = ScannerManager.getNumber();
-        System.out.println("Do you want delete this exercise [y/n]");
-        while (true) {
-            String temp = ScannerManager.getString();
-            if (temp.equals("y")) {
-                dao.delete(id);
-                break;
-            } else if (temp.equals("n")) {
-                break;
-            }
+        System.out.println("Deleting this group will delete this users and all their solutions");
+        PrintInConsoleUtil.showUsers(new UserDAO().findAllByGroupId(id));
+        if(confirmDelete()) {
+            dao.delete(id);
         }
     }
 
     @Override
     protected void showAll() {
-        UsersGroups[] groups = dao.findAll();
+        UsersGroup[] groups = dao.findAll();
         System.out.println("All User group:");
-        for (UsersGroups group : groups) {
-            System.out.println(group);
-        }
+        PrintInConsoleUtil.showUsersGroups(groups);
     }
 
-    private UsersGroups getElement() {
-        UsersGroups group = new UsersGroups();
+    private UsersGroup getElement() {
+        UsersGroup group = new UsersGroup();
         System.out.println("Enter name");
         group.setName(ScannerManager.getString());
         return group;
