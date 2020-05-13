@@ -2,7 +2,7 @@
 
 To do:
 
--werifikacja usera za pomocą jego hasła
+-werifikacja admin za pomocą jego hasła //powstałą zmiana w tej linijce 
 
 -dodanie userowi możliwości usuwania i edytowania zadań
 
