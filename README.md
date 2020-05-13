@@ -4,7 +4,7 @@ To do:
 
 -werifikacja usera za pomocą jego hasła
 
--dodanie userowi możliwości usuwania i edytowania zadań
+-dodanie userowi możliwości usuwania i zmiana w tej linijce zadań
 
 -dodanie userowi możliwości zmiany hasłą
 
