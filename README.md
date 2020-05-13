@@ -4,7 +4,7 @@ To do:
 
 -werifikacja admin za pomocą jego hasła //powstałą zmiana w tej linijce 
 
--dodanie userowi możliwości usuwania i edytowania zadań
+-dodanie userowi możliwości usuwania i zmiana w tej linijce zadań
 
 -dodanie userowi możliwości zmiany hasłą
 
